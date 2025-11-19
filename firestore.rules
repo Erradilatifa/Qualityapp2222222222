@@ -1,0 +1,50 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+<<<<<<< HEAD
+    // Allow read access to users collection for login lookup
+    match /users/{document} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    
+    // Operators collection - allow all operations (for development)
+    match /operators/{operatorId} {
+      allow read, write, delete: if true;
+    }
+    
+    // Notifications collection - allow all operations (for development)
+    match /notifications/{notificationId} {
+      allow read, write, delete: if true;
+    }
+    
+    // User connections tracking
+    match /user_connections/{connectionId} {
+      allow read, write: if true;
+    }
+   
+    // All other collections require authentication
+=======
+    // Users collection - allow read for login, write only for authenticated users
+    match /users/{userId} {
+      allow read: if true; // Allow reading for login lookup
+      allow write: if request.auth != null;
+    }
+    
+    // Operators collection - allow authenticated users to read/write
+    match /operators/{operatorId} {
+      allow read, write: if request.auth != null;
+    }
+    
+    // Notifications collection - allow authenticated users to read/write
+    match /notifications/{notificationId} {
+      allow read, write: if request.auth != null;
+    }
+    
+    // Allow all authenticated users to query other collections
+>>>>>>> 6838a3e4919d55419b89d61cc8741525751b31f5
+    match /{document=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}

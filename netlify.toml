@@ -1,0 +1,22 @@
+[build]
+  publish = "dist"
+  command = "npx expo export --platform web"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[[redirects]]
+  from = "/api/*"
+  to = "https://qualityapp-v2-git-v4-mails-erradilatifas-projects.vercel.app/api/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[dev]
+  command = "npm run web"
+  port = 19006
+  publish = "dist"
